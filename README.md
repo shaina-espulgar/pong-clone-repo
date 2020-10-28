@@ -7,8 +7,9 @@ Some Tentative Objective:
 4. Working Main Menu
 
 Development Team: 
-Mark Anthony Pandan
-Danish Sibulo
-Shaina Espulgar
-Khuille Bagares
+
+1. Mark Anthony Pandan
+2. Danish Sibulo
+3. Shaina Espulgar
+4. Khuille Bagares
 
