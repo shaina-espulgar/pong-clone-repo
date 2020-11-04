@@ -8,7 +8,7 @@
  game_height = 720
  
  --change of y variable ( hmmmm )
- movementOfY = 250
+ movementOfY = 350
  
  function love.load()
    math.randomseed(os.time())
@@ -28,6 +28,53 @@
  end
  
  function love.update(dt)
+   
+   if gameState == 'play' then
+     if playBall:collision(paddlePlayerOne) then
+       playBall.dx = -playBall.dx * 1.1
+       playBall.x = paddlePlayerOne.x + 35
+       
+       if playBall.dy < 0 then
+         playBall.dy = -math.random(25, 250)
+       else
+         playBall.dy = math.random(25, 250)
+       end
+     end
+     
+     if playBall:collision(paddlePlayerTwo) then
+       playBall.dx = -playBall.dx * 1.1
+       playBall.x = paddlePlayerTwo.x - 20
+       
+       if playBall.dy < 0 then
+         playBall.dy = -math.random(25, 250)
+       else
+         playBall.dy = math.random(25, 250)
+       end
+       
+     end
+     
+     if playBall.y <= 0 then
+       playBall.y = 0
+       playBall.dy = -playBall.dy
+     end
+     
+     if playBall.y >= game_height then
+       playBall.y = game_height
+       playBall.dy = -playBall.dy
+      end
+       
+   end 
+   
+   if playBall.x < 0 then
+     playBall:reset()
+     gameState = 'start'
+   end
+   
+   if playBall.x > game_width then
+     playBall:reset()
+     gameState = 'start'
+   end 
+     
 
   if love.keyboard.isDown('w') then
      paddlePlayerOne.dy = -movementOfY
@@ -84,5 +131,11 @@ function love.draw()
     paddlePlayerTwo:render()
     playBall:render()
     
+    --fpsDisplay()
+    
 end
 
+function fpsDisplay()
+  love.graphics.setColor(0, 255/255, 0, 255/255)
+  love.graphics.print('FPS : ' .. tostring(love.timer.getFPS()), 10, 10)
+end
