@@ -9,6 +9,7 @@ function paddles:init(x, y, width, height)
 end
 
 function paddles:update(dt)
+  --collision of the paddle in respect to the game_height
   if self.dy < 0 then
     self.y = math.max(0, self.y + self.dy * dt)
   else

@@ -11,7 +11,7 @@
  movementOfY = 350
  
  function love.load()
-   math.randomseed(os.time())
+   math.randomseed(os.time()) --this is for math.random()
    love.window.setMode(game_width, game_height, {
        fullscreen = false,
        resizable = false,
@@ -30,6 +30,8 @@
  function love.update(dt)
    
    if gameState == 'play' then
+     
+     --this handles the collision of the ball to the paddle
      if playBall:collision(paddlePlayerOne) then
        playBall.dx = -playBall.dx * 1.1
        playBall.x = paddlePlayerOne.x + 35
@@ -53,6 +55,7 @@
        
      end
      
+     --this handles the collision of the ball in respect to y
      if playBall.y <= 0 then
        playBall.y = 0
        playBall.dy = -playBall.dy
@@ -65,7 +68,8 @@
        
    end 
    
-   if playBall.x < 0 then
+   --this handles the reset of the ball
+   if playBall.x < 0 then --conditional operator of the ball's x
      playBall:reset()
      gameState = 'start'
    end
@@ -75,7 +79,7 @@
      gameState = 'start'
    end 
      
-
+-- this handles controls the paddle
   if love.keyboard.isDown('w') then
      paddlePlayerOne.dy = -movementOfY
    elseif love.keyboard.isDown('s') then
@@ -102,7 +106,7 @@
    
  end
   
-  function love.keypressed(key)
+ function love.keypressed(key)
    if key == 'escape' then
      love.event.quit()
     elseif key == 'enter' or key == 'return' then
@@ -113,7 +117,7 @@
         playBall:reset()
       end
     end
-  end
+ end
   
 
 function love.draw()
