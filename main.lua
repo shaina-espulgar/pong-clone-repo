@@ -1,7 +1,9 @@
-
  Class = require 'class'
  require 'paddles'
  require 'ball'
+ require 'menu'
+ 
+ main = Class{}
  
  -- This is the aspect ratio
  game_width = 1280
@@ -9,16 +11,12 @@
  
  --change of y variable ( hmmmm )
  movementOfY = 350
+ menu = menu()
  
  function love.load()
+   menu:store()
    math.randomseed(os.time()) --this is for math.random()
-   love.window.setMode(game_width, game_height, {
-       fullscreen = false,
-       resizable = false,
-       vsync = true
-     })
-   love.graphics.setBackgroundColor(1, 1, 1, 1)
-   
+
    paddlePlayerOne = paddles(40, 120, 25, 150)
    paddlePlayerTwo = paddles(game_width-80, game_height - 240, 25, 150)
    
@@ -121,22 +119,25 @@
   
 
 function love.draw()
-   love.graphics.setColor(0, 0, 0, 1)
-   love.graphics.printf(
-     "PONG GAME",
-     game_width/2 - 25,
-     25,
-     game_width
-     --'center'
-    )
-    love.graphics.rectangle('line', 0, 0, game_width, game_height)
-   -- love.graphics.circle('fill', game_width/2, game_height/2, 20)
-    paddlePlayerOne:render()
-    paddlePlayerTwo:render()
-    playBall:render()
+   menu:draw()
+end
+
+function play_Game()
+  love.graphics.setColor(0, 0, 0, 1)
+  love.graphics.printf(
+    "PONG GAME",
+    game_width/2 - 25,
+    25,
+    game_width
+    --'center'
+  )
+  love.graphics.rectangle('line', 0, 0, game_width, game_height)
+  -- love.graphics.circle('fill', game_width/2, game_height/2, 20)
+  paddlePlayerOne:render()
+  paddlePlayerTwo:render()
+  playBall:render()
     
-    --fpsDisplay()
-    
+  fpsDisplay()
 end
 
 function fpsDisplay()
