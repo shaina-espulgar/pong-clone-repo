@@ -17,6 +17,9 @@
    menu:store()
    math.randomseed(os.time()) --this is for math.random()
 
+   PlayerOneScore = 0
+   PlayerTwoScore = 0
+   
    paddlePlayerOne = paddles(40, 120, 25, 150)
    paddlePlayerTwo = paddles(game_width-80, game_height - 240, 25, 150)
    
@@ -68,11 +71,15 @@
    
    --this handles the reset of the ball
    if playBall.x < 0 then --conditional operator of the ball's x
+     ServingPlayer = 1
+     PlayerTwoScore = PlayerTwoScore + 1
      playBall:reset()
      gameState = 'start'
    end
    
    if playBall.x > game_width then
+     ServingPlayer = 2
+     PlayerOneScore = PlayerOneScore + 1
      playBall:reset()
      gameState = 'start'
    end 
